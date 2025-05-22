@@ -4,6 +4,7 @@ import { events, Event } from "@/data/events";
 import EventCard from "@/components/EventCard";
 import EventFilters from "@/components/EventFilters";
 import Navbar from "@/components/Navbar";
+import Stories from "@/components/Stories";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<Event["category"] | null>(null);
@@ -24,6 +25,8 @@ const Index = () => {
         </div>
         
         <div className="max-w-5xl mx-auto">
+          <Stories />
+          
           <EventFilters
             onFilterChange={setSelectedCategory}
             currentFilter={selectedCategory}
