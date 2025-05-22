@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -132,6 +131,14 @@ export default {
 					'100%': {
 						opacity: '1',
 						transform: 'scale(1)'
+					}
+				},
+				'progress': {
+					'0%': {
+						width: '0%'
+					},
+					'100%': {
+						width: '100%'
 					}
 				}
 			},
