@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
+				display: ['Playfair Display', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -65,12 +66,26 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Pastel renklerimiz
+				soft: {
+					blue: '#E5DEFF',
+					pink: '#FFDEE2',
+					green: '#F2FCE2'
+				},
+				vivid: {
+					purple: '#8B5CF6',
+					blue: '#0EA5E9'
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'card': '0 8px 30px rgb(0,0,0,0.04)',
+				'card-hover': '0 14px 40px rgb(0,0,0,0.08)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -98,12 +113,36 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
+				},
+				'fade-in-right': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateX(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateX(0)'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.95)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.3s ease-out'
+				'fade-in': 'fade-in 0.3s ease-out',
+				'fade-in-delay-1': 'fade-in 0.3s ease-out 0.1s forwards',
+				'fade-in-delay-2': 'fade-in 0.3s ease-out 0.2s forwards',
+				'fade-in-right': 'fade-in-right 0.3s ease-out',
+				'scale-in': 'scale-in 0.2s ease-out'
 			}
 		}
 	},

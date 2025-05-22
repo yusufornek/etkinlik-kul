@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Event } from "@/data/events";
 
@@ -19,14 +18,18 @@ const EventFilters = ({ onFilterChange, currentFilter }: EventFiltersProps) => {
   ];
 
   return (
-    <div className="mb-6 flex flex-wrap gap-2">
+    <div className="mb-8 flex flex-wrap gap-3">
       {filters.map((filter) => (
         <Button
           key={filter.label}
           onClick={() => onFilterChange(filter.value)}
           variant={currentFilter === filter.value ? "default" : "outline"}
           size="sm"
-          className="rounded-full"
+          className={`rounded-full transition-all duration-300 ${
+            currentFilter === filter.value 
+              ? "bg-vivid-purple hover:bg-vivid-purple/90" 
+              : "hover:bg-soft-blue hover:text-vivid-purple"
+          }`}
         >
           {filter.label}
         </Button>

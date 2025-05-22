@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
+    --background: 210 40% 98%;
     --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 240 5.9% 10%;
+    --primary: 262 83% 58%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
@@ -35,7 +35,7 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
 
-    --radius: 0.5rem;
+    --radius: 0.8rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -52,23 +52,35 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F9FAFB] text-foreground;
     font-family: 'Inter', sans-serif;
   }
 }
 
 @layer components {
   .event-card {
-    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-2 rounded-xl shadow-card;
   }
   
   .event-category-badge {
-    @apply inline-flex items-center rounded-full px-2 py-1 text-xs font-medium;
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .frosted-navbar {
+    @apply bg-white/80 backdrop-blur-sm border-b border-gray-100 shadow-sm;
+  }
+
+  .card-image-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/30 to-transparent;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .text-title {
+    @apply font-display font-medium;
   }
 }
