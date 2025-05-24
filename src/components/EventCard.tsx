@@ -12,7 +12,7 @@ const EventCard = ({ event }: EventCardProps) => {
   const categoryColorClass = getCategoryColor(event.category);
   
   return (
-    <Link to={`/event/${event.id}`} className="event-card block overflow-hidden bg-white">
+    <Link to={`/event/${event.id}`} className="event-card block overflow-hidden bg-card text-card-foreground border border-border">
       <div className="relative h-56 overflow-hidden rounded-t-xl">
         <img
           src={event.imageUrl}
@@ -25,21 +25,21 @@ const EventCard = ({ event }: EventCardProps) => {
         </span>
       </div>
       <div className="p-5">
-        <h3 className="font-display text-lg font-medium mb-2 line-clamp-1">{event.title}</h3>
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <h3 className="font-display text-lg font-medium mb-2 line-clamp-1 text-foreground">{event.title}</h3>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">
           {event.description}
         </p>
-        <div className="flex flex-col gap-2 text-sm text-gray-600">
+        <div className="flex flex-col gap-2 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Calendar size={14} className="text-vivid-purple" />
+            <Calendar size={14} className="text-primary" />
             <span>{formatDate(event.date)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock size={14} className="text-vivid-purple" />
+            <Clock size={14} className="text-primary" />
             <span>{event.time}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin size={14} className="text-vivid-purple" />
+            <MapPin size={14} className="text-primary" />
             <span className="truncate">{event.location}</span>
           </div>
         </div>
