@@ -14,12 +14,12 @@ const Index = () => {
     : events;
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <div className="container mx-auto px-4 py-12">
         <div className="mb-10 text-center max-w-2xl mx-auto">
-          <h1 className="text-4xl font-display font-semibold mb-3 animate-fade-in">Kampüs Etkinlikleri</h1>
-          <p className="text-gray-600 leading-relaxed animate-fade-in-delay-1 opacity-0">
+          <h1 className="text-4xl font-display font-semibold mb-3 animate-fade-in text-foreground">Kampüs Etkinlikleri</h1>
+          <p className="text-muted-foreground leading-relaxed animate-fade-in-delay-1 opacity-0">
             Kampüste gerçekleşecek ücretsiz etkinlikleri keşfedin
           </p>
         </div>
@@ -42,7 +42,7 @@ const Index = () => {
           
           {filteredEvents.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-gray-500 font-medium">Bu kategoride etkinlik bulunamadı.</p>
+              <p className="text-muted-foreground font-medium">Bu kategoride etkinlik bulunamadı.</p>
             </div>
           )}
         </div>

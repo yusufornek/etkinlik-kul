@@ -6,28 +6,32 @@ import { useEffect, useState } from "react";
 const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Component mount olduğunda tema durumunu kontrol et
   useEffect(() => {
-    // Check if the document already has dark mode class
+    // HTML element'in dark class'ına sahip olup olmadığını kontrol et
     const isDarkClass = document.documentElement.classList.contains("dark");
     
-    // Get saved theme from localStorage
+    // LocalStorage'dan kaydedilmiş tema tercihini al
     const savedTheme = localStorage.getItem("theme");
     
-    // Check system preference
+    // Sistem tercihini kontrol et
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     
-    // Set the state based on the current document class or preferences
-    setIsDarkMode(isDarkClass || savedTheme === "dark" || (!savedTheme && prefersDark));
+    // Mevcut durum belirleme
+    const shouldBeDark = isDarkClass || savedTheme === "dark" || (!savedTheme && prefersDark);
     
-    // Ensure the document class matches our state
-    if (isDarkMode) {
+    // State'i güncelle
+    setIsDarkMode(shouldBeDark);
+    
+    // HTML element'in class'ını güncelle
+    if (shouldBeDark) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
   }, []);
 
-  // Update theme when isDarkMode changes
+  // isDarkMode değiştiğinde tema güncellemesi yap
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
