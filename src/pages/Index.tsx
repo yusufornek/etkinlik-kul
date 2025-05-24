@@ -1,17 +1,30 @@
 
-import { useState } from "react";
-import { events, Event } from "@/data/events";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import EventCard from "@/components/EventCard";
 import EventFilters from "@/components/EventFilters";
 import Navbar from "@/components/Navbar";
 import Stories from "@/components/Stories";
+import { eventsAPI, categoriesAPI } from "@/lib/api";
+import { Event, Category } from "@/types";
 
 const Index = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Event["category"] | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
-  const filteredEvents = selectedCategory
-    ? events.filter((event) => event.category === selectedCategory)
-    : events;
+  // Kategorileri çek
+  const { data: categories = [] } = useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: () => categoriesAPI.getAll(true),
+  });
+
+  // Etkinlikleri çek
+  const { data: events = [], isLoading, error } = useQuery<Event[]>({
+    queryKey: ['events', selectedCategoryId],
+    queryFn: () => eventsAPI.getAll({
+      category_id: selectedCategoryId || undefined,
+      active_only: true,
+    }),
+  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -28,22 +41,39 @@ const Index = () => {
           <Stories />
           
           <EventFilters
-            onFilterChange={setSelectedCategory}
-            currentFilter={selectedCategory}
+            categories={categories}
+            onFilterChange={setSelectedCategoryId}
+            currentFilter={selectedCategoryId}
           />
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event, index) => (
-              <div key={event.id} className={`opacity-0 animate-fade-in-delay-${index < 6 ? (index % 3) + 1 : 2}`}>
-                <EventCard event={event} />
-              </div>
-            ))}
-          </div>
-          
-          {filteredEvents.length === 0 && (
+          {isLoading && (
             <div className="text-center py-16">
-              <p className="text-muted-foreground font-medium">Bu kategoride etkinlik bulunamadı.</p>
+              <p className="text-muted-foreground">Etkinlikler yükleniyor...</p>
             </div>
+          )}
+          
+          {error && (
+            <div className="text-center py-16">
+              <p className="text-red-500">Etkinlikler yüklenirken bir hata oluştu.</p>
+            </div>
+          )}
+          
+          {!isLoading && !error && (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {events.map((event, index) => (
+                  <div key={event.id} className={`opacity-0 animate-fade-in-delay-${index < 6 ? (index % 3) + 1 : 2}`}>
+                    <EventCard event={event} />
+                  </div>
+                ))}
+              </div>
+              
+              {events.length === 0 && (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground font-medium">Bu kategoride etkinlik bulunamadı.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

@@ -1,37 +1,41 @@
-
 import { Button } from "@/components/ui/button";
-import { Event } from "@/data/events";
+import { Category } from "@/types";
 
 interface EventFiltersProps {
-  onFilterChange: (category: Event["category"] | null) => void;
-  currentFilter: Event["category"] | null;
+  categories: Category[];
+  onFilterChange: (categoryId: number | null) => void;
+  currentFilter: number | null;
 }
 
-const EventFilters = ({ onFilterChange, currentFilter }: EventFiltersProps) => {
-  const filters: Array<{ label: string; value: Event["category"] | null }> = [
-    { label: "Tümü", value: null },
-    { label: "Film", value: "film" },
-    { label: "Eğitim", value: "education" },
-    { label: "Sosyal", value: "social" },
-    { label: "Spor", value: "sports" },
-    { label: "Sanat", value: "arts" },
-  ];
-
+const EventFilters = ({ categories, onFilterChange, currentFilter }: EventFiltersProps) => {
   return (
     <div className="mb-8 flex flex-wrap gap-3">
-      {filters.map((filter) => (
+      <Button
+        onClick={() => onFilterChange(null)}
+        variant={currentFilter === null ? "default" : "outline"}
+        size="sm"
+        className={`rounded-full transition-all duration-300 ${
+          currentFilter === null 
+            ? "bg-vivid-purple hover:bg-vivid-purple/90" 
+            : "hover:bg-soft-blue hover:text-vivid-purple"
+        }`}
+      >
+        Tümü
+      </Button>
+      
+      {categories.map((category) => (
         <Button
-          key={filter.label}
-          onClick={() => onFilterChange(filter.value)}
-          variant={currentFilter === filter.value ? "default" : "outline"}
+          key={category.id}
+          onClick={() => onFilterChange(category.id)}
+          variant={currentFilter === category.id ? "default" : "outline"}
           size="sm"
           className={`rounded-full transition-all duration-300 ${
-            currentFilter === filter.value 
+            currentFilter === category.id 
               ? "bg-vivid-purple hover:bg-vivid-purple/90" 
               : "hover:bg-soft-blue hover:text-vivid-purple"
           }`}
         >
-          {filter.label}
+          {category.name}
         </Button>
       ))}
     </div>

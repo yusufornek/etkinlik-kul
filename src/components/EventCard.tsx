@@ -1,27 +1,24 @@
-
-import { Event, getCategoryColor, getCategoryName } from "@/data/events";
+import { Event } from "@/types";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin, Clock } from "lucide-react";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getImageUrl } from "@/lib/utils";
 
 interface EventCardProps {
   event: Event;
 }
 
 const EventCard = ({ event }: EventCardProps) => {
-  const categoryColorClass = getCategoryColor(event.category);
-  
   return (
     <Link to={`/event/${event.id}`} className="event-card block overflow-hidden bg-card text-card-foreground border border-border">
       <div className="relative h-56 overflow-hidden rounded-t-xl">
         <img
-          src={event.imageUrl}
+          src={getImageUrl(event.image_url)}
           alt={event.title}
           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
         />
         <div className="card-image-overlay" />
-        <span className={`absolute top-3 right-3 event-category-badge ${categoryColorClass}`}>
-          {getCategoryName(event.category)}
+        <span className={`absolute top-3 right-3 event-category-badge ${event.category.color_class} ${event.category.text_color_class}`}>
+          {event.category.name}
         </span>
       </div>
       <div className="p-5">

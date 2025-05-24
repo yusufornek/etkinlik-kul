@@ -1,73 +1,175 @@
-# Welcome to your Lovable project
+# Kampüs Etkinlikleri Platformu
 
-## Project info
+Modern bir kampüs etkinlikleri yönetim sistemi. React + TypeScript + Vite (Frontend) ve FastAPI + SQLAlchemy (Backend) ile geliştirilmiştir.
 
-**URL**: https://lovable.dev/projects/c0ec0c64-f833-4486-ac5b-63d526022576
+## 🚀 Özellikler
 
-## How can I edit this code?
+- **Etkinlik Yönetimi**: Etkinlik oluşturma, düzenleme, silme
+- **Kategori Sistemi**: Etkinlikleri kategorilere göre filtreleme
+- **Story Özelliği**: Instagram tarzı story'ler ile duyurular
+- **Harita Entegrasyonu**: Etkinlik konumlarını haritada gösterme
+- **Kayıt Sistemi**: Etkinliklere online kayıt imkanı
+- **Admin Paneli**: Tam yetki ile yönetim
+- **Responsive Tasarım**: Mobil uyumlu arayüz
+- **Dark Mode**: Karanlık tema desteği
 
-There are several ways of editing your application.
+## 📋 Gereksinimler
 
-**Use Lovable**
+- **Node.js** (v16 veya üzeri)
+- **Python** (3.8 veya üzeri)
+- **Git** (opsiyonel)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c0ec0c64-f833-4486-ac5b-63d526022576) and start prompting.
+## 🛠️ Kurulum
 
-Changes made via Lovable will be committed automatically to this repo.
+### 1. Projeyi Klonlayın
 
-**Use your preferred IDE**
+```bash
+git clone <repo-url>
+cd etkinlik-kul
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 2. Backend Kurulumu
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Backend klasörüne gidin
+cd backend
 
-Follow these steps:
+# Python sanal ortamı oluşturun
+python -m venv venv
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Sanal ortamı aktifleştirin
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Gerekli paketleri yükleyin
+pip install -r requirements.txt
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Backend'i başlatın
+uvicorn app.main:app --reload
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Backend `http://localhost:8000` adresinde çalışacaktır.
+
+### 3. Frontend Kurulumu
+
+Yeni bir terminal açın:
+
+```bash
+# Ana dizinde (projenin kök klasöründe)
+# Gerekli paketleri yükleyin
+npm install
+
+# Frontend'i başlatın
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Frontend `http://localhost:5173` adresinde çalışacaktır.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 4. Veritabanı ve Örnek Veriler
 
-**Use GitHub Codespaces**
+Backend ilk çalıştığında otomatik olarak SQLite veritabanı oluşturulur.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Örnek verilerle doldurmak için:
 
-## What technologies are used for this project?
+```bash
+cd backend
+python seed_data.py
+```
 
-This project is built with:
+## 🔐 Admin Girişi
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **URL**: `http://localhost:5173/admin`
+- **Kullanıcı adı**: `admin`
+- **Şifre**: `admin123`
 
-## How can I deploy this project?
+## 📂 Proje Yapısı
 
-Simply open [Lovable](https://lovable.dev/projects/c0ec0c64-f833-4486-ac5b-63d526022576) and click on Share -> Publish.
+```
+etkinlik-kul/
+├── backend/
+│   ├── app/
+│   │   ├── api/           # API endpoint'leri
+│   │   ├── core/          # Yapılandırma ve güvenlik
+│   │   ├── models/        # Veritabanı modelleri
+│   │   └── schemas/       # Pydantic şemaları
+│   ├── uploads/           # Yüklenen görseller
+│   ├── requirements.txt   # Python bağımlılıkları
+│   └── seed_data.py      # Örnek veri oluşturucu
+│
+├── src/
+│   ├── components/        # React bileşenleri
+│   ├── contexts/          # React context'leri
+│   ├── hooks/            # Custom hook'lar
+│   ├── lib/              # Yardımcı fonksiyonlar
+│   ├── pages/            # Sayfa bileşenleri
+│   └── types/            # TypeScript tipleri
+│
+├── public/               # Statik dosyalar
+├── package.json          # Node.js bağımlılıkları
+└── README.md            # Bu dosya
+```
 
-## Can I connect a custom domain to my Lovable project?
+## 🔧 Teknik Detaylar
 
-Yes, you can!
+### Frontend
+- **React** + **TypeScript**
+- **Vite** (Build tool)
+- **Tailwind CSS** (Styling)
+- **shadcn/ui** (UI Components)
+- **React Query** (Data fetching)
+- **React Router** (Routing)
+- **Leaflet** (Harita)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Backend
+- **FastAPI** (Web framework)
+- **SQLAlchemy** (ORM)
+- **SQLite** (Veritabanı)
+- **Pydantic** (Data validation)
+- **JWT** (Authentication)
+- **Pillow** (Görsel işleme)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📱 Kullanım
+
+### Kullanıcı Arayüzü
+1. Ana sayfada tüm etkinlikleri görüntüleyin
+2. Kategorilere göre filtreleyin
+3. Etkinlik detaylarını inceleyin
+4. Etkinliklere kayıt olun
+5. Story'leri görüntüleyin
+
+### Admin Paneli
+1. `/admin` adresinden giriş yapın
+2. Etkinlikleri yönetin (oluştur, düzenle, sil)
+3. Kategorileri yönetin
+4. Story'leri yönetin
+5. Görsel yükleyin
+
+## 🎨 Özelleştirme
+
+- Tema renkleri: `src/index.css`
+- API ayarları: `backend/.env`
+- Frontend ayarları: `src/lib/api.ts`
+
+## 🚨 Sorun Giderme
+
+### Backend Hataları
+- **401 Unauthorized**: Token süresi dolmuş, yeniden giriş yapın
+- **Database hatası**: `backend/etkinlik.db` dosyasını silin ve backend'i yeniden başlatın
+
+### Frontend Hataları
+- **CORS hatası**: Backend'in çalıştığından emin olun
+- **Build hatası**: `node_modules` klasörünü silip `npm install` çalıştırın
+
+## 📄 Lisans
+
+MIT
+
+## 👥 Katkıda Bulunma
+
+1. Fork'layın
+2. Feature branch oluşturun (`git checkout -b feature/AmazingFeature`)
+3. Commit'leyin (`git commit -m 'Add some AmazingFeature'`)
+4. Push'layın (`git push origin feature/AmazingFeature`)
+5. Pull Request açın

@@ -1,21 +1,52 @@
-
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { events, getCategoryColor, getCategoryName } from "@/data/events";
-import { formatDate } from "@/lib/utils";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { eventsAPI } from "@/lib/api";
+import { formatDate, getImageUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Clock, User, ArrowLeft, CalendarCheck } from "lucide-react";
+import { Calendar, MapPin, Clock, User, ArrowLeft, CalendarCheck, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import EventLocationMap from "@/components/EventLocationMap";
 import { addToCalendar } from "@/lib/calendar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const EventDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  const event = events.find((e) => e.id === id);
+  const { data: event, isLoading, error } = useQuery({
+    queryKey: ['event', id],
+    queryFn: () => eventsAPI.getById(Number(id)),
+    enabled: !!id,
+  });
   
-  if (!event) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-4 py-8 max-w-5xl">
+          <Skeleton className="h-10 w-32 mb-6" />
+          <div className="bg-card rounded-xl overflow-hidden">
+            <Skeleton className="h-72 md:h-[400px] w-full" />
+            <div className="p-6 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-6">
+                  <Skeleton className="h-32 w-full" />
+                  <Skeleton className="h-48 w-full" />
+                </div>
+                <div className="space-y-6">
+                  <Skeleton className="h-64 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  if (error || !event) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background">
         <h1 className="text-2xl font-display font-bold mb-4">Etkinlik bulunamadı</h1>
@@ -25,8 +56,6 @@ const EventDetail = () => {
       </div>
     );
   }
-  
-  const categoryColorClass = getCategoryColor(event.category);
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,14 +74,14 @@ const EventDetail = () => {
           <div className="parallax-container relative h-72 md:h-[400px]">
             <div className="parallax-layer animate-parallax-slow">
               <img
-                src={event.imageUrl}
+                src={getImageUrl(event.image_url)}
                 alt={event.title}
                 className="h-full w-full object-cover scale-110"
               />
             </div>
             <div className="card-image-overlay" />
-            <span className={`absolute top-4 right-4 event-category-badge ${categoryColorClass}`}>
-              {getCategoryName(event.category)}
+            <span className={`absolute top-4 right-4 event-category-badge ${event.category.color_class}`}>
+              {event.category.name}
             </span>
             
             <div className="absolute left-6 bottom-6 md:left-10 md:bottom-10 z-10 max-w-xl animate-parallax-medium">
@@ -95,12 +124,39 @@ const EventDetail = () => {
               <div className="flex flex-col gap-6 justify-center animate-fade-in-delay-2 opacity-0">
                 <div className="rounded-xl border p-8 text-center bg-card">
                   <h3 className="text-2xl font-display font-semibold mb-4">Katılım</h3>
-                  <p className="text-foreground/70 mb-8 leading-relaxed">
-                    Bu etkinlik ücretsizdir ve tüm kampüse açıktır.
-                  </p>
-                  <Button className="w-full py-6 text-lg rounded-xl bg-vivid-purple hover:bg-vivid-purple/90 transition-all duration-300">
-                    Katılıyorum
-                  </Button>
+                  {event.requires_registration ? (
+                    <>
+                      <p className="text-foreground/70 mb-8 leading-relaxed">
+                        Bu etkinlik için kayıt gerekmektedir.
+                      </p>
+                      {event.registration_link ? (
+                        <a 
+                          href={event.registration_link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-2"
+                        >
+                          <Button className="w-full py-6 text-lg rounded-xl bg-vivid-purple hover:bg-vivid-purple/90 transition-all duration-300">
+                            Kayıt Ol
+                            <ExternalLink className="ml-2 h-4 w-4" />
+                          </Button>
+                        </a>
+                      ) : (
+                        <p className="text-foreground/70">
+                          Kayıt bilgileri yakında açıklanacaktır.
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-foreground/70 mb-8 leading-relaxed">
+                        Bu etkinlik için kayıt gerekmemektedir. Tüm kampüse açıktır.
+                      </p>
+                      <Button className="w-full py-6 text-lg rounded-xl bg-vivid-purple hover:bg-vivid-purple/90 transition-all duration-300" disabled>
+                        Kayıt Gerekmiyor
+                      </Button>
+                    </>
+                  )}
                 </div>
                 
                 <Dialog>
@@ -148,7 +204,7 @@ const EventDetail = () => {
               </div>
             </div>
             
-            {event.coordinates && (
+            {event.latitude && event.longitude && (
               <div className="mt-12 animate-fade-in-delay-2 opacity-0">
                 <h3 className="text-2xl font-display font-medium mb-4">Konum</h3>
                 <EventLocationMap event={event} className="h-[400px] w-full" />
