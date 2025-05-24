@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -140,6 +141,14 @@ export default {
 					'100%': {
 						width: '100%'
 					}
+				},
+				'parallax-float': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
 				}
 			},
 			animation: {
@@ -149,7 +158,10 @@ export default {
 				'fade-in-delay-1': 'fade-in 0.3s ease-out 0.1s forwards',
 				'fade-in-delay-2': 'fade-in 0.3s ease-out 0.2s forwards',
 				'fade-in-right': 'fade-in-right 0.3s ease-out',
-				'scale-in': 'scale-in 0.2s ease-out'
+				'scale-in': 'scale-in 0.2s ease-out',
+				'parallax-slow': 'parallax-float 8s ease-in-out infinite',
+				'parallax-medium': 'parallax-float 6s ease-in-out infinite',
+				'parallax-fast': 'parallax-float 4s ease-in-out infinite'
 			}
 		}
 	},

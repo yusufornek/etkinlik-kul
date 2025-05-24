@@ -9,6 +9,11 @@ export interface Event {
   category: 'film' | 'social' | 'education' | 'sports' | 'arts';
   organizer: string;
   imageUrl: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  address?: string;
 }
 
 export const events: Event[] = [
@@ -21,7 +26,12 @@ export const events: Event[] = [
     location: "Merkez Amfi",
     category: "film",
     organizer: "Sinema Kulübü",
-    imageUrl: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0082,
+      lng: 28.9784
+    },
+    address: "İstanbul Üniversitesi, Beyazıt Merkez Kampüsü, Fatih/İstanbul"
   },
   {
     id: "2",
@@ -32,7 +42,12 @@ export const events: Event[] = [
     location: "İktisadi İdari Bilimler Konferans Salonu",
     category: "education",
     organizer: "Kariyer Merkezi",
-    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0122,
+      lng: 28.9714
+    },
+    address: "İstanbul Üniversitesi İktisat Fakültesi, Beyazıt/İstanbul"
   },
   {
     id: "3",
@@ -43,7 +58,12 @@ export const events: Event[] = [
     location: "Merkez Çim Alan",
     category: "social",
     organizer: "Öğrenci Konseyi",
-    imageUrl: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0102,
+      lng: 28.9744
+    },
+    address: "İstanbul Üniversitesi Ana Bahçe, Beyazıt/İstanbul"
   },
   {
     id: "4",
@@ -54,7 +74,12 @@ export const events: Event[] = [
     location: "Spor Salonu",
     category: "sports",
     organizer: "Spor Bilimleri Fakültesi",
-    imageUrl: "https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0157,
+      lng: 28.9706
+    },
+    address: "İstanbul Üniversitesi Spor Bilimleri Fakültesi, Avcılar/İstanbul"
   },
   {
     id: "5",
@@ -65,7 +90,12 @@ export const events: Event[] = [
     location: "Güzel Sanatlar Galerisi",
     category: "arts",
     organizer: "Fotoğrafçılık Kulübü",
-    imageUrl: "https://images.unsplash.com/photo-1594807777657-664cf4a4a616?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1594807777657-664cf4a4a616?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0125,
+      lng: 28.9756
+    },
+    address: "İstanbul Üniversitesi Güzel Sanatlar Fakültesi, Beyazıt/İstanbul"
   },
   {
     id: "6",
@@ -76,7 +106,12 @@ export const events: Event[] = [
     location: "Botanik Bahçe",
     category: "film",
     organizer: "Kültür Sanat Topluluğu",
-    imageUrl: "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0137,
+      lng: 28.9788
+    },
+    address: "İstanbul Üniversitesi Botanik Bahçesi, Süleymaniye/İstanbul"
   },
   {
     id: "7",
@@ -87,7 +122,12 @@ export const events: Event[] = [
     location: "Mühendislik Fakültesi Konferans Salonu",
     category: "education",
     organizer: "Bilgisayar Mühendisliği Bölümü",
-    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0279,
+      lng: 28.8913
+    },
+    address: "İstanbul Üniversitesi Mühendislik Fakültesi, Avcılar/İstanbul"
   },
   {
     id: "8",
@@ -98,7 +138,12 @@ export const events: Event[] = [
     location: "Öğrenci Merkezi",
     category: "sports",
     organizer: "Satranç Kulübü",
-    imageUrl: "https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=1000&auto=format&fit=crop"
+    imageUrl: "https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=1000&auto=format&fit=crop",
+    coordinates: {
+      lat: 41.0118,
+      lng: 28.9734
+    },
+    address: "İstanbul Üniversitesi Öğrenci Merkezi, Beyazıt/İstanbul"
   }
 ];
 

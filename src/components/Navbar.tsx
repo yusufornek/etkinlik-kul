@@ -1,20 +1,24 @@
 
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   return (
-    <nav className="frosted-navbar py-4 px-4 md:px-6 sticky top-0 z-10">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-xl font-display font-semibold">
-          KampüsEtkinlik
+    <header className="frosted-navbar sticky top-0 w-full z-40">
+      <div className="container mx-auto flex h-16 items-center justify-between">
+        <Link to="/" className="flex items-center space-x-2">
+          <span className="text-xl font-display font-medium">KampüsEtkinlik</span>
         </Link>
-        <div className="text-sm font-medium">
-          <Link to="/" className="ml-4 transition-colors hover:text-vivid-purple">
-            Anasayfa
-          </Link>
+        
+        <div className="flex items-center space-x-2">
+          <ThemeToggle />
+          <Button variant="default" size="sm">
+            Giriş Yap
+          </Button>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

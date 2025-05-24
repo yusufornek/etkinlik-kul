@@ -47,12 +47,51 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 5%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    --sidebar-background: 240 10% 7%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 10% 3.9%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-[#F9FAFB] text-foreground;
+    @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
 }
@@ -67,11 +106,19 @@
   }
 
   .frosted-navbar {
-    @apply bg-white/80 backdrop-blur-sm border-b border-gray-100 shadow-sm;
+    @apply bg-background/80 backdrop-blur-sm border-b border-border shadow-sm;
   }
 
   .card-image-overlay {
     @apply absolute inset-0 bg-gradient-to-t from-black/30 to-transparent;
+  }
+
+  .parallax-container {
+    @apply relative overflow-hidden;
+  }
+  
+  .parallax-layer {
+    @apply absolute w-full h-full;
   }
 }
 
