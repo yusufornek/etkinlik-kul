@@ -7,29 +7,39 @@ const ThemeToggle = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Tarayıcının tercih ettiği tema modunu al
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    // Check if the document already has dark mode class
+    const isDarkClass = document.documentElement.classList.contains("dark");
+    
+    // Get saved theme from localStorage
     const savedTheme = localStorage.getItem("theme");
     
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
+    // Check system preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    // Set the state based on the current document class or preferences
+    setIsDarkMode(isDarkClass || savedTheme === "dark" || (!savedTheme && prefersDark));
+    
+    // Ensure the document class matches our state
+    if (isDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
-      setIsDarkMode(false);
       document.documentElement.classList.remove("dark");
     }
   }, []);
 
-  const toggleTheme = () => {
+  // Update theme when isDarkMode changes
+  useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
-      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   return (

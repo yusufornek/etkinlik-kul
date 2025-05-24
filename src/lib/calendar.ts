@@ -5,7 +5,7 @@ import { formatDate } from "@/lib/utils";
 /**
  * Etkinliği kullanıcının takvimine eklemek için gerekli URL'yi oluşturur
  */
-export const createCalendarUrl = (event: Event): string => {
+export const createCalendarUrl = (event: Event) => {
   // Genel veriler
   const title = encodeURIComponent(event.title);
   const description = encodeURIComponent(event.description);
