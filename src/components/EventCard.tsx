@@ -28,15 +28,15 @@ const EventCard = ({ event }: EventCardProps) => {
         </p>
         <div className="flex flex-col gap-2 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Calendar size={14} className="text-primary" />
+            <Calendar size={14} className="text-primary" aria-hidden="true" />
             <span>{formatDate(event.date)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock size={14} className="text-primary" />
+            <Clock size={14} className="text-primary" aria-hidden="true" />
             <span>{event.time}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin size={14} className="text-primary" />
+            <MapPin size={14} className="text-primary" aria-hidden="true" />
             <span className="truncate">{event.location}</span>
           </div>
         </div>
