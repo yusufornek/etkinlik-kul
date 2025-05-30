@@ -20,7 +20,7 @@ const Navbar = () => {
               to="/" 
               className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
             >
-              <Home className="h-4 w-4" />
+              <Home className="h-4 w-4" aria-hidden="true" />
               Anasayfa
             </Link>
           )}
