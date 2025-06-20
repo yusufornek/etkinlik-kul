@@ -1,4 +1,11 @@
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+// Get the current host and use it for API calls
+const getApiBaseUrl = () => {
+  const host = window.location.hostname;
+  const port = '8000';
+  return `http://${host}:${port}/api/v1`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // API çağrıları için temel fonksiyon
 async function fetchAPI(endpoint: string, options?: RequestInit) {

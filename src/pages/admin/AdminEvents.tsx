@@ -27,7 +27,7 @@ const AdminEvents = () => {
     time: "",
     location: "",
     organizer: "",
-    category_id: 0,
+    category_id: "",
     latitude: null as number | null,
     longitude: null as number | null,
     address: "",
@@ -119,7 +119,7 @@ const AdminEvents = () => {
       time: "",
       location: "",
       organizer: "",
-      category_id: 0,
+      category_id: "",
       latitude: null,
       longitude: null,
       address: "",
@@ -133,10 +133,26 @@ const AdminEvents = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Form validation
+    if (!formData.category_id || formData.category_id === "") {
+      toast({
+        title: "Hata",
+        description: "Lütfen bir kategori seçin.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Convert category_id to number for API
+    const submitData = {
+      ...formData,
+      category_id: Number(formData.category_id)
+    };
+    
     if (selectedEvent) {
-      updateMutation.mutate({ id: selectedEvent.id, data: formData });
+      updateMutation.mutate({ id: selectedEvent.id, data: submitData });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(submitData);
     }
   };
 
@@ -149,7 +165,7 @@ const AdminEvents = () => {
       time: event.time,
       location: event.location,
       organizer: event.organizer,
-      category_id: event.category_id,
+      category_id: String(event.category_id),
       latitude: event.latitude,
       longitude: event.longitude,
       address: event.address || "",
@@ -256,7 +272,7 @@ const AdminEvents = () => {
                   <Label htmlFor="category">Kategori</Label>
                   <Select
                     value={String(formData.category_id)}
-                    onValueChange={(value) => setFormData({ ...formData, category_id: Number(value) })}
+                    onValueChange={(value) => setFormData({ ...formData, category_id: value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Kategori seçin" />
