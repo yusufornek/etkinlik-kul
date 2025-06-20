@@ -58,7 +58,7 @@ const EventDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         <Button 
@@ -66,7 +66,7 @@ const EventDetail = () => {
           className="mb-6 flex items-center gap-2 hover:bg-soft-blue transition-colors duration-300"
           onClick={() => navigate(-1)}
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={16} aria-hidden="true" />
           Geri Dön
         </Button>
         
@@ -103,19 +103,19 @@ const EventDetail = () => {
                 
                 <div className="rounded-xl bg-secondary/50 p-5 space-y-4 border border-border">
                   <div className="flex items-center gap-3">
-                    <Calendar className="text-vivid-purple" size={18} />
+                    <Calendar className="text-vivid-purple" size={18} aria-hidden="true" />
                     <span className="font-medium">{formatDate(event.date)}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Clock className="text-vivid-purple" size={18} />
+                    <Clock className="text-vivid-purple" size={18} aria-hidden="true" />
                     <span className="font-medium">{event.time}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <MapPin className="text-vivid-purple" size={18} />
+                    <MapPin className="text-vivid-purple" size={18} aria-hidden="true" />
                     <span className="font-medium">{event.address || event.location}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <User className="text-vivid-purple" size={18} />
+                    <User className="text-vivid-purple" size={18} aria-hidden="true" />
                     <span className="font-medium">{event.organizer}</span>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ const EventDetail = () => {
                         >
                           <Button className="w-full py-6 text-lg rounded-xl bg-vivid-purple hover:bg-vivid-purple/90 transition-all duration-300">
                             Kayıt Ol
-                            <ExternalLink className="ml-2 h-4 w-4" />
+                            <ExternalLink className="ml-2 h-4 w-4" aria-hidden="true" />
                           </Button>
                         </a>
                       ) : (
@@ -162,7 +162,7 @@ const EventDetail = () => {
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button variant="outline" className="w-full flex items-center gap-2 justify-center py-5">
-                      <CalendarCheck className="h-4 w-4" />
+                      <CalendarCheck className="h-4 w-4" aria-hidden="true" />
                       Takvime Ekle
                     </Button>
                   </DialogTrigger>
@@ -213,7 +213,7 @@ const EventDetail = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

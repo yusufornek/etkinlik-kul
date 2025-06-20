@@ -11,7 +11,7 @@ from .core.security import get_password_hash
 from .core.database import SessionLocal
 
 # Veritabanı tablolarını oluştur
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine) # Testler için bu satırı yorumla, conftest.py yönetecek
 
 # FastAPI uygulaması
 app = FastAPI(

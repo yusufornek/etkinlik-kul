@@ -1,0 +1,95 @@
+name: CI Checks
+
+on:
+  push:
+    branches: [ main, master ] # Adjust if your main branch has a different name
+  pull_request:
+    branches: [ main, master ] # Adjust if your main branch has a different name
+
+jobs:
+  frontend-checks:
+    name: Frontend Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        # bun-version: latest # Default is latest
+
+      - name: Install frontend dependencies (Bun)
+        run: bun install --frozen-lockfile
+        # Fallback if bun fails:
+        # run: npm install
+
+      - name: Lint frontend (ESLint)
+        run: bun run lint 
+        # Assumes 'lint' script in package.json (e.g., "eslint .")
+
+      - name: Run frontend tests
+        run: bun run test 
+        # Assumes 'test' script in package.json (e.g., "vitest run")
+
+      - name: Build frontend
+        run: bun run build 
+        # Assumes 'build' script in package.json
+
+  backend-checks:
+    name: Backend Checks
+    runs-on: ubuntu-latest
+    # No default working directory, run commands from repo root
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+
+      - name: Install Python dependencies
+        working-directory: ./backend # Run pip install in backend directory
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # Optional: Add Python linting step here if linters like Flake8/Black are used
+      # - name: Lint Python code
+      #   working-directory: ./backend
+      #   run: |
+      #     pip install flake8
+      #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      #     # Or: black --check .
+
+      - name: Run backend tests (Pytest)
+        env:
+          PYTHONPATH: ${{ github.workspace }} # Set PYTHONPATH to the workspace root
+          DATABASE_URL: "sqlite:///:memory:"
+          SECRET_KEY: "testsecretkey_ci_workflow" # Changed to be more unique
+          ADMIN_USERNAME: "ci_admin"
+          ADMIN_PASSWORD: "ci_super_password" # Changed
+          ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+          ALGORITHM: "HS256"
+          FRONTEND_URL: "http://localhost:3000" 
+          UPLOAD_FOLDER: "./uploads_test_ci" # Relative to where pytest runs or where app expects
+          MAX_FILE_SIZE: "1048576" 
+          ALLOWED_EXTENSIONS: '["jpg", "jpeg", "png", "gif"]'
+        # Run pytest from the root, targeting the backend tests directory
+        run: pytest backend/tests/
+```
+
+Key changes in this refinement:
+- Explicitly set `PYTHONPATH: ${{ github.workspace }}` for the backend test step. This makes imports like `from backend.app...` work correctly when `pytest` is run from the repository root.
+- Changed the `pytest` command to `pytest backend/tests/` to be explicit about the target directory from the root.
+- Clarified `working-directory: ./backend` for the Python dependency installation step, as `requirements.txt` is inside `backend/`.
+- Slightly changed some dummy environment variable values for CI to make them distinct.
+- Removed `bun-version: latest` from `setup-bun` as it defaults to latest.
+
+This looks like a more robust configuration for the backend testing step regarding paths.
+The `UPLOAD_FOLDER: "./uploads_test_ci"` is relative to the root. If any tests actually write files, the backend application code needs to handle this path correctly. Given current tests, this is mostly for settings validation.

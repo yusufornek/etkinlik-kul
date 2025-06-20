@@ -27,7 +27,7 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background text-foreground">
       <Navbar />
       <div className="container mx-auto px-4 py-12">
         <div className="mb-10 text-center max-w-2xl mx-auto">
@@ -47,13 +47,13 @@ const Index = () => {
           />
           
           {isLoading && (
-            <div className="text-center py-16">
+            <div role="status" className="text-center py-16">
               <p className="text-muted-foreground">Etkinlikler yükleniyor...</p>
             </div>
           )}
           
           {error && (
-            <div className="text-center py-16">
+            <div role="alert" className="text-center py-16"> {/* Using role="alert" for errors */}
               <p className="text-red-500">Etkinlikler yüklenirken bir hata oluştu.</p>
             </div>
           )}
@@ -69,7 +69,7 @@ const Index = () => {
               </div>
               
               {events.length === 0 && (
-                <div className="text-center py-16">
+                <div role="status" className="text-center py-16">
                   <p className="text-muted-foreground font-medium">Bu kategoride etkinlik bulunamadı.</p>
                 </div>
               )}
@@ -77,7 +77,7 @@ const Index = () => {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
