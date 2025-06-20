@@ -19,6 +19,11 @@ import AdminEvents from "./pages/admin/AdminEvents";
 import AdminCategories from "./pages/admin/AdminCategories";
 import AdminStories from "./pages/admin/AdminStories";
 import AdminSettings from "./pages/admin/AdminSettings";
+// New Page Imports
+import ClubsListPage from './pages/clubs/index';
+import ClubDetailPage from './pages/clubs/[id]';
+import ClubDashboardPage from './pages/club-dashboard/index';
+import AdminPendingRequestsPage from './pages/admin/AdminPendingRequests';
 
 const queryClient = new QueryClient();
 
@@ -50,8 +55,18 @@ const App = () => (
               <Route path="categories" element={<AdminCategories />} />
               <Route path="stories" element={<AdminStories />} />
               <Route path="settings" element={<AdminSettings />} />
+              <Route path="pending-requests" element={<AdminPendingRequestsPage />} /> {/* New admin route */}
             </Route>
             
+            {/* Club related public routes */}
+            <Route path="/clubs" element={<ClubsListPage />} />
+            <Route path="/clubs/:id" element={<ClubDetailPage />} />
+
+            {/* Club Dashboard - can be protected later */}
+            {/* Example of protecting it if ProtectedRoute can handle general logged-in user or specific roles */}
+            {/* <Route path="/club-dashboard" element={<ProtectedRoute><ClubDashboardPage /></ProtectedRoute>} /> */}
+            <Route path="/club-dashboard" element={<ClubDashboardPage />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

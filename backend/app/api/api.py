@@ -1,6 +1,10 @@
 from fastapi import APIRouter
 
-from .endpoints import auth, categories, events, stories, settings
+from .endpoints import (
+    auth, categories, events, stories, settings,
+    clubs, content_requests, user_roles,
+    forms, applications # New routers
+)
 
 api_router = APIRouter()
 
@@ -38,3 +42,28 @@ api_router.include_router(
     prefix="/settings",
     tags=["settings"]
 )
+
+# Clubs routes
+api_router.include_router(
+    clubs.router,
+    prefix="/clubs",
+    tags=["Clubs"]
+)
+
+# Content Requests routes
+api_router.include_router(
+    content_requests.router,
+    prefix="/content-requests",
+    tags=["Content Requests"]
+)
+
+# User Roles routes
+api_router.include_router(
+    user_roles.router,
+    prefix="/user-roles",
+    tags=["User Roles"]
+)
+
+# Form Management System routers
+api_router.include_router(forms.router, prefix="/forms", tags=["Forms"])
+api_router.include_router(applications.router, prefix="/applications", tags=["Applications"])

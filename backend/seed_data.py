@@ -7,6 +7,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from app.core.database import SessionLocal, engine, Base
 from app.models import Category, Event, Story, Admin
+# New Models for table creation
+from app.models.user import User
+from app.models.club import Club, ClubMember
+from app.models.user_role import UserRole
+from app.models.content_request import ContentRequest
+from app.models.form import Form, Application, ApplicationFile # New form models
 from app.core.security import get_password_hash
 from app.core.config import settings
 
